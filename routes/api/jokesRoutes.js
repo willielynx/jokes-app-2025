@@ -5,9 +5,14 @@ const PORT = process.env.PORT || 3001
 
 // http://localhost:PORT/jokes
 router.get('/', (req,res) => {
-    // res.send('This works')
     const url = 'https://api.sampleapis.com/jokes/goodJokes'
-    axios.get(url).then(resp => console.log(resp)).then(res.send('data received'))
+    axios.get(url).then(resp => {
+        res.render('pages/allJokes', {
+            title: 'All Jokes',
+            name: 'All Jokes',
+            data: resp.data
+        })
+    })
 })
 
 

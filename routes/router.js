@@ -1,12 +1,20 @@
 const express = require('express')
 const router = express.Router()
+const axios = require('axios')
+const getJoke = require('../helpers/getJoke')
 
 // Home Route http://localhost:PORT
 router.get('/', (req, res) => {
 
-    res.render('./pages/home', {
+    const url = 'https://api.sampleapis.com/jokes/goodJokes'
+
+
+    axios.get(url).then(resp => {
+        res.render('./pages/home', {
         title: 'Good Jokes',
-        name: 'Good Jokes App'
+        name: 'Good Jokes App',
+        joke: getJoke(resp.data)
+        })
     })
 })
 
@@ -19,7 +27,7 @@ router.use('/jokes', require('./api/jokesRoutes'))
 router.use((req,res,next) => {
     res.status(404).render('pages/404', {
         title: '404 Error',
-        name: '404 Error. This page does not exist'
+        name: '404 Error. Jokes on you! This page does not exist'
     })
     
 })
