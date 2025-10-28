@@ -23,12 +23,16 @@ router.get('/', (req,res) => {
         for (let i = startIdx; i < endIdx; i++) {
             jokesArr.push(resp.data[i])
         }
+
+        const prev = page > 1 ? page - 1 : null
+        const next = endIdx >= resp.data.length ? null : page + 1
+
         res.render('pages/allJokes', {
             title: 'All Jokes',
             name:'All Jokes',
             data: jokesArr,
-            prev: page > 1 ? page - 1 : null,
-            next: endIdx >= jokesArr.length ? null : page + 1 
+            prev: prev,
+            next: next 
     })
         
     })
