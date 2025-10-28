@@ -1,38 +1,34 @@
 const express = require('express')
 const router = express.Router()
 const axios = require('axios')
+const {paginationResults, buildJokeArr} = require('../../helpers/pagination')
 const PORT = process.env.PORT || 3001
 
 // http://localhost:PORT/jokes
 router.get('/', (req,res) => {
     const url = 'https://api.sampleapis.com/jokes/goodJokes'
-    // **pagination
-    const query = req.query ? req.query : {}
 
-    // get page and limit
-    let page = parseInt(query.page) || 1
-    let limit = parseInt(query.limit) || 12
+    const pageData = paginationResults(req)
 
-    console.log(`page:${page}, limit:${limit}`)
-
-    const startIdx = (page - 1) * limit
-    const endIdx = page * limit
     let jokesArr = []
 
     axios.get(url).then(resp => {
-        for (let i = startIdx; i < endIdx; i++) {
-            jokesArr.push(resp.data[i])
-        }
+        // for (let i = pageData.startIdx; i < pageData.endIdx; i++) {
+            
+        //     if (resp.data[i] != undefined) {
+        //     jokesArr.push(resp.data[i])
+        //     }
+        // }
 
-        const prev = page > 1 ? page - 1 : null
-        const next = endIdx >= resp.data.length ? null : page + 1
-
+        // const prev = pageData.page > 1 ? pageData.page - 1 : null
+        // const next = pageData.endIdx >= resp.data.length ? null : pageData.page + 1
+        const jokeArrData = buildJokeArr(resp.data, jokesArr, pageData.startIdx, pageData.endIdx, pageData.page)
         res.render('pages/allJokes', {
             title: 'All Jokes',
             name:'All Jokes',
-            data: jokesArr,
-            prev: prev,
-            next: next 
+            data: jokeArrData.arr,
+            prev: jokeArrData.prev,
+            next: jokeArrData.next
     })
         
     })
@@ -44,16 +40,20 @@ router.get('/', (req,res) => {
 router.get('/type/:type', (req, res) => {
     const type = req.params.type
     const url =`https://api.sampleapis.com/jokes/goodJokes`
-
+    const pageData = paginationResults(req)
     // We will filter through resp.data and store in typeArr
     let typeArr = []
+    let jokesArr = []
 
+    const jokeArrData = buildJokeArr(typeArr, jokesArr, pageData.startIdx, pageData.endIdx)
     axios.get(url).then(resp => typeArr = resp.data.filter(item => item.type == type))
     .then(typeArr => {
         res.render('pages/allJokes', {
             title: type,
             name: `${type} jokes`,
-            data: typeArr
+            data: jokeArrData.arr,
+            prev: jokeArrData.prev,
+            next: jokeArrData.next
 
         })
     })

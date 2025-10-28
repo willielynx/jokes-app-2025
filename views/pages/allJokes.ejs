@@ -2,6 +2,16 @@
 
 <main class="main" id="main">
     <div class="container">
+        <div class="row">
+            <div class="col align-self-end">
+                <% if (prev != null) { %>
+                    <a href="?page=<%= prev %>">prev</a>
+                <% } %>
+                <% if (next != null) { %>
+                    <a href="?page=<%= next %>">next</a>
+                <% } %>
+            </div>
+        </div>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <% data.forEach(joke => { %>
                 <div class="col">
@@ -20,12 +30,6 @@
                 </div>
             <% }) %>
         </div>
-        <nav class="nav justify-content-space-around justify-content-md-end">
-            <a href="<%= `http://localhost:3001/jokes?page=${next}` %>">Next Page</a>
-        </nav>
-        <nav class="nav" id="nav">
-            <a href="<%= `http://localhost:3001/jokes?page=${prev}` %>">Previous Page</a>
-        </nav>
     </div>
 </main>
 
