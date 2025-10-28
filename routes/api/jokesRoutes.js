@@ -26,7 +26,9 @@ router.get('/', (req,res) => {
         res.render('pages/allJokes', {
             title: 'All Jokes',
             name:'All Jokes',
-            data: jokesArr
+            data: jokesArr,
+            prev: page > 1 ? page - 1 : null,
+            next: endIdx >= jokesArr.length ? null : page + 1 
     })
         
     })
