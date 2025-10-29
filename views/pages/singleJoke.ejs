@@ -2,9 +2,31 @@
 
 <main class="main" id="main">
     <div class="container">
-        <h2 class="text-center"><%= name %></h2>
-        <p class = "display-1 text-center"><%= punchline %></p>
-        <img src="<%= gif %>" alt="gif of troll face" class="d-block img-fluid mx-auto rounded">
+        <div class="row">
+            <div class="col-2">
+                <% if (id != 3) { %>
+                    <p class="prev-text">
+                        <a href="/jokes/<%= prev %>" class="prev-link">
+                            &lt;prev
+                        </a>
+                    </p>
+                <% } %>
+            </div>
+            <div class="col-8">
+                <h2 class="text-center"><%= name %></h2>
+                <p class = "display-1 text-center"><%= punchline %></p>
+                <img src="<%= gif %>" alt="gif of troll face" class="d-block img-fluid mx-auto rounded">
+            </div>
+            <div class="col-2">
+                <% if (id != 388 ) { %>
+
+                    <p class="next-text">
+                        <a href="/jokes/<%= next %>" class="next-link">
+                            next&gt;
+                        </a>
+                    </p>
+                <%} %>
+        </div>
     </div>
 </main>
 
