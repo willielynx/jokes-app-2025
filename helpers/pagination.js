@@ -1,4 +1,4 @@
-const paginationResults =(obj) => {
+const paginationResults =(obj)=> {
 
     // empty object
     let results = {}
@@ -16,9 +16,11 @@ const paginationResults =(obj) => {
     results.limit = limit
     results.startIdx = startIdx
     results.endIdx = endIdx
+
+    return results
 }
     // build array
-    const buildJokeArr=(arr,start, end, obj)=> {
+    const buildJokeArr=(arr, arr2, start, end, page)=> {
 
         let results = {}
 
@@ -31,7 +33,7 @@ const paginationResults =(obj) => {
 const prev = page > 1 ? page - 1 : null
 const next = end >= arr.length ? null : page + 1
 
-results.arr = arr
+results.arr = arr2
 results.prev = prev
 results.next = next
 
