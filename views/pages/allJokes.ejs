@@ -8,7 +8,7 @@
                     <a href="?page=<%= prev %>">prev</a>
                 <% } %>
 
-                
+
                 <% if (next != null) { %>
                     <a href="?page=<%= next %>">next</a>
                 <% } %>
@@ -25,7 +25,9 @@
                         </div>
                         <div class="card-footer">
                             <p class="card-text">
-                                <%= joke.punchline %>
+                                Click
+                                <a href="/jokes/<%= joke.id %>" class="joke-link">here</a>
+                                for the punchline
                             </p>
                         </div>
                     </div>
